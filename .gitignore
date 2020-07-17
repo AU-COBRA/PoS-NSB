@@ -1,0 +1,17 @@
+##########  Coq
+\#*\#
+*.vo
+*.vos
+*.v.pdf
+*.vok
+*.v.d
+*.glob
+*.coq.d
+.coq-native
+Makefile.coq
+*.aux
+CoqMakefile.conf
+Makefile.coq.conf
+
+# Others
+.DS_STORE

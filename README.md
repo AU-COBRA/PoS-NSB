@@ -1,6 +1,6 @@
 # PoS-NSB
 This repository contains a formalization of Proof-of-Stake (PoS)
-Nakamoto-style blockchain (NSB). Inn a synchronous network with a
+Nakamoto-style blockchain (NSB). Assuming a synchronous network with a
 static set of corrupted parties we prove chain growth, chain quality,
 and common prefix.
 

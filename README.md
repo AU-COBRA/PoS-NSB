@@ -4,7 +4,7 @@ Nakamoto-style blockchain (NSB). Assuming a synchronous network with a
 static set of corrupted parties we prove chain growth, chain quality,
 and common prefix.
 
-The report describing the project is available at [TBA](TBA).
+The report describing the project is available [here](https://arxiv.org/abs/2007.12105).
 
 ## Project Structure
 

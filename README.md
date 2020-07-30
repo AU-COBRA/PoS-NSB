@@ -20,7 +20,7 @@ The top-level structure consists of the following folders:
   the chain growth theorem, `CQ.v` contains the chain quality theorem,
   and `CP.v` contains the common prefix theorem.
 
-A dipiction of the dependencies between the files can be found [here](./deps.svg).
+A depiction of the dependencies between the files can be found [here](./deps.svg).
 
 
 ## How to build

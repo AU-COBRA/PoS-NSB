@@ -1,0 +1,36 @@
+opam-version: "2.0"
+maintainer: "palmskog@gmail.com"
+version: "dev"
+
+homepage: "https://github.com/AU-COBRA/PoS-NSB"
+dev-repo: "git+https://github.com/AU-COBRA/PoS-NSB.git"
+bug-reports: "https://github.com/AU-COBRA/PoS-NSB/issues"
+license: "MIT"
+
+synopsis: "Coq formalization of a proof-of-stake Nakamoto-style blockchain"
+description: """
+This repository contains a formalization of Proof-of-Stake (PoS)
+Nakamoto-style blockchain (NSB). Assuming a synchronous network
+with a static set of corrupted parties we prove chain growth,
+chain quality, and common prefix."""
+
+build: ["dune" "build" "-p" name "-j" jobs]
+depends: [
+  "dune" {>= "2.5"}
+  "coq" {>= "8.11" & < "8.13~"}
+  "coq-mathcomp-ssreflect" {>= "1.11" & < "1.12~"}
+  "coq-mathcomp-finmap" {>= "1.5"}
+  "coq-equations" {>= "1.2.2"}
+  "coq-record-update" 
+]
+
+tags: [
+  "category:Computer Science/Concurrent Systems and Protocols/Theory of concurrent systems"
+  "keyword:blockchain"
+  "keyword:consensus"
+  "logpath:AUChain"
+]
+authors: [
+  "Søren Eller Thomsen"
+  "Bas Spitters"
+]

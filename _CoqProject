@@ -1,8 +1,6 @@
--Q Protocol AUChain
--Q Model AUChain
--Q Properties AUChain
+-Q . AUChain
 
--arg "-w -notation-overridden"
+-arg -w -arg -notation-overridden
 
 Protocol/Parameters.v
 Protocol/Blocks.v

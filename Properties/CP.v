@@ -732,7 +732,7 @@ Proof.
     (* Honest party *)
     + rewrite /honest_bake /=.
       case win : Winner=> //=. 
-      set nb := MkBlock _ _ _. case honest_pk: is_honest => //=; last first.
+      set nb := MkBlock _ _ _ _. case honest_pk: is_honest => //=; last first.
       { move => coll bin.
         apply/(@cfb_valid_subset _ [seq get_block m | m <- history N''])=> //. 
         - by apply/(in_subset2 _ coll)/subset_cons.
@@ -878,7 +878,7 @@ Proof.
   (* Honest party *)
   + rewrite /honest_bake /=.
     case win : Winner=> //=.
-    set nb := MkBlock _ _ _. case honest_pk: is_honest => //=; last first.
+    set nb := MkBlock _ _ _ _. case honest_pk: is_honest => //=; last first.
     { move => coll bin.
       apply/(@cfb_valid_subset _ [seq get_block m | m <- history N'])=> //.
       - by apply/(in_subset2 _ coll)/subset_cons.
@@ -1049,8 +1049,7 @@ Proof.
       move: state_p. 
       rewrite (no_state_change_bake_different_parties _ pnotps)=> state_p.      
       move/(pk_preserved N0N): (state_p) ->. 
-      set nb:= MkBlock _ _ _. 
-      
+      set nb:= MkBlock _ _ _ _. 
       rewrite honest_not_corrupt corrupt_p inE => no_coll /orP [/eqP bnbeq|].
       * rewrite bnbeq. 
         have ->: cfb nb (nb :: [seq get_block m | m <- history N'])
@@ -1241,7 +1240,7 @@ Proof.
         move: win_p.
         move/(pk_preserved N0N): (state_p) -> => win_p. 
         rewrite honest_not_corrupt corrupt_p.
-        set nb := MkBlock _ _ _. move=> no_coll.
+        set nb := MkBlock _ _ _ _. move=> no_coll.
         rewrite inE=> /orP [/eqP b'nb|]; last first.
         (* Not the new block *)
         - move=> b'in.
@@ -1347,7 +1346,7 @@ Proof.
         rewrite add0n -slb. 
           by move=> /IH {}IH no_coll /IH. }
       (* Slot winner *)
-      set nb := MkBlock _ _ _. move=> no_coll.
+      set nb := MkBlock _ _ _ _. move=> no_coll.
       rewrite honest_not_corrupt corrupt_p /=. 
       have hbh_mem: honest_block_hist N =i honest_block_hist N'1. 
       { move: win_sl wc.
@@ -1583,7 +1582,7 @@ Proof.
         move: state_p. rewrite (no_state_change_bake_different_parties _ pnotps)=> state_p. 
         rewrite (pk_preserved N0N state_p) baking_preserves_time. 
         case win_p: Winner => //=.
-        set nb := MkBlock _ _ _. move=> no_coll.
+        set nb := MkBlock _ _ _ _. move=> no_coll.
         rewrite inE=> /orP [/eqP nbeq | bin]. 
         - rewrite nbeq.
           (* We establish the new chain *)
@@ -1765,7 +1764,7 @@ Proof.
       move: (pk_preserved N0N state_p) ->. 
       case win_p: Winner => //=.
       rewrite honest_not_corrupt corrupt_p.
-      set nb := MkBlock _ _ _. move=> no_coll.
+      set nb := MkBlock _ _ _ _. move=> no_coll.
       rewrite inE => /orP [/eqP| bin]; last first.
       (* Not the new block (IH) *)
       { rewrite -(@cfb_non_empty_subset _ (block_history N')) //; last first.

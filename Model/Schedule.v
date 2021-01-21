@@ -56,6 +56,8 @@ Parameter AdversarialRcv:
   MessagePool ->
   State AdversarialState (seq (Message * DelayMap)).
 
+Parameter TxSelection : Slot -> Party -> Transactions.
+
 (** We translate the map of honesty a boolean value. **)
 Definition is_corrupt p : bool := CorruptionStatus p == Corrupt.
 Definition is_honest p : bool := CorruptionStatus p == Honest.
@@ -66,7 +68,7 @@ Definition is_honest p : bool := CorruptionStatus p == Honest.
 Definition party_bake_step_world (p : Party) (N : GlobalState) : GlobalState :=
   if (state_map N).[? p] is Some l
   then if ~~(is_corrupt p)
-       then let '(n_msgs, new_ls) := honest_bake (t_now N) l
+       then let '(n_msgs, new_ls) := honest_bake (t_now N) (TxSelection (t_now N) p) l
             in flood_msgs n_msgs (upd_local p new_ls N)
        else let '(n_msgs, adv_state') := AdversarialBake (t_now N) (history N) (msg_buff N) (adv_state N)
             in (flood_msgs_adv n_msgs N)[[adv_state := adv_state']]

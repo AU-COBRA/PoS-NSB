@@ -597,7 +597,7 @@ Proof.
       case state_p: (_.[?_])=> [l|]//=.
       case honest_p: (~~_)=> //=.
       * rewrite /honest_bake //=. case: Winner => //=. 
-        set nb := MkBlock _ _ _. 
+        set nb := MkBlock _ _ _ _. 
         rewrite (@bakes_preserves_pk _ p N N0N l state_p). 
         rewrite honest_not_corrupt honest_p inE => /orP [/eqP -> /=|].
         -- rewrite (@bakes_preserves_pk _ p N N0N l state_p).

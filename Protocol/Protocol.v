@@ -40,12 +40,12 @@ Section Protocol.
 
   (* Notice that if a party actually bakes a block it will be added
      directly to the blocktree of this party. *)
-  Definition honest_bake (sl : Slot) : State LocalState Messages :=
+  Definition honest_bake (sl : Slot) (txs : Transactions) : State LocalState Messages :=
     local_state <- get;
     if Winner (pk local_state) sl
     then let: bestChain := bestChain (sl-1) (tree local_state) in
          let: hashPrev := HashB (head GenesisBlock bestChain) in
-         let: newBlock := MkBlock sl hashPrev (pk local_state) in
+         let: newBlock := MkBlock sl txs hashPrev (pk local_state) in
          modify (fun l => extend_tree_l l newBlock);;
          pure [:: BlockMsg newBlock]
     else pure [::].

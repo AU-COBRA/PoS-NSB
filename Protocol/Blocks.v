@@ -14,6 +14,7 @@ Unset Printing Implicit Defensive.
 Record Block :=
   MkBlock
     { sl : Slot
+    ; txs : Transactions
     ; pred : Hash
     ; bid : Party }.
 
@@ -25,13 +26,13 @@ Definition BlockPool := seq Block.
 (* Decidable equality for Blocks *)
 Definition eq_block (b b' : Block) :=
   match b, b' with
-  | MkBlock sl pt bid, MkBlock sl' pt' bid' =>
-    [&& sl == sl', pt == pt' & bid == bid']
+  | MkBlock sl txs pt bid, MkBlock sl' txs' pt' bid' =>
+    [&& sl == sl', txs == txs', pt == pt' & bid == bid']
   end.
 
 Lemma eq_blockP : Equality.axiom eq_block.
 Proof.
-  case => sl pt bid; case => sl' pt' bid' .
+  case => sl txs pt bid; case => sl'f txs' pt' bid' .
   rewrite /eq_block.
   do ! (case: _ /eqP; [move => -> |by constructor; case]).
   by constructor.

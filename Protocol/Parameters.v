@@ -5,6 +5,7 @@ From mathcomp Require Import
     This file contains basic paramters for the protocol, as well as a few synononyms. 
 **)
 
+Parameter Transactions : eqType.
 Parameter Hash : eqType.
 Parameter Party : finType.
 

@@ -28,7 +28,7 @@ Lemma lt_slots_irr : irreflexive lt_slots.
 Proof. by move=> [] > /=; rewrite ltnn. Qed. 
 
 Lemma lt_slots_trans : transitive lt_slots. 
-Proof. by move=> [] ??? [] ??? [] ??? + H; apply/(ltn_trans H). Qed. 
+Proof. by move=> [] ???? [] ???? [] ???? + H; apply/(ltn_trans H). Qed. 
 
 Lemma valid_chain_block_gb b : reflect (b = GenesisBlock) (valid_chain [:: b]). 
 Proof.

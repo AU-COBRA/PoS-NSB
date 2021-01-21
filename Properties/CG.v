@@ -558,14 +558,14 @@ Proof.
   - by rewrite in_nil /party_bake_step_world; case s: (_.[? _]).
   - rewrite inE.
     case: (_ == _)/eqP=> /=.
-    + move=> <- /andP [H1 H2] H3. rewrite {3}/party_bake_step_world.
+    + move=> <- /andP [H1 H2] H3. rewrite {3 5 6}/party_bake_step_world.
       fix_this.
       move: H3. rewrite !(no_state_change_bake_different_parties _ H1).
       rewrite {18}/party_bake_step_world. move=> H3.
       fix_this'.
       move:H3. case h: ((state_map N).[? p]) =>[l|] //= _.
-      rewrite baking_preserves_time. case case: (~~ _)=> //=.
-      * case honesty: honest_bake=> >;
+      rewrite baking_preserves_time. case: (~~ _)=> //=.
+      * case honesty: (honest_bake _ _ _) => >;
           by rewrite !flood_msgs_preserves_state !fnd_set eq_refl.
       * do 2! case: AdversarialBake=> > //=.
         rewrite !broadcast_adv_msgs_preserves_state /=.
@@ -929,13 +929,13 @@ Proof.
                              & (cd mt == 1) && (rcv mt == r)]
                           = [:: get_block nbm].
       { move: u. clear. elim: (exec_order _)=> //=.
-        move=> p ps' IH /andP [H /IH {} IH] p'.
+        move=> p ps' IH /andP [H /IH {} IH] p''.
         rewrite inE. case: (_ == _)/eqP => [-> _|] //=.
         - rewrite eq_refl //=.
           suff: [seq get_block (msg mt)
                 | mt <- [seq {| msg := nbm; rcv := r; cd := 1 |} | r <- ps']
                   & (cd mt == 1) && (rcv mt == p)] = [::] by move->.
-          move: H. clear. elim: ps'=> //= p' ps' IH.
+          move: H. clear. elim: ps'=> //= p'' ps' IH.
             by rewrite inE negb_or eq_sym; case: (_ == _).
         - by move/eqP; rewrite eq_sym; case: (_ == _)=> //= _ H1; apply/IH. }
       do 2 (rewrite H7; last by rewrite bakes_preserves_order).
@@ -1093,7 +1093,7 @@ Proof.
   rewrite honest_not_corrupt/honest_bake/has_state => H1. rewrite H1 //=. 
   case w: Winner=> //=; rewrite fnd_set eq_refl ;
   [|by case=> ->; exists [::]; constructor; [rewrite cats0|] ]. 
-  set nb := MkBlock _ _ _. case=> <-. 
+  set nb := MkBlock _ _ _ _. case=> <-. 
   exists [:: nb]. rewrite /nb. case: l1 H3 w nb => > H3 w nb. constructor; first by move => >; rewrite all_extend.
   move=> p' H. apply/subset_trans; last first.
   - apply/(tbd_bakes_in_subset A). rewrite honest_not_corrupt.
@@ -1494,7 +1494,7 @@ Proof.
   rewrite/party_bake_step_world state_p -honest_not_corrupt honesty_p.
   rewrite /honest_bake /=. rewrite pk_l W /=. 
   rewrite /has_state fnd_set eq_refl=> [] [] <- /=. 
-  set nb := MkBlock _ _ _.
+  set nb := MkBlock _ _ _ _.
   set c := bestChain (sl - 1) _. 
   apply/(@ltn_leq_trans (| nb :: c |))=> //. 
   apply/best_chain_best.
